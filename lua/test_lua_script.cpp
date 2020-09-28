@@ -3,17 +3,24 @@
 //
 
 #include <iostream>
-#include "example2.h"
+#include <string>
+//#include "example2.h"
+#include "lua_game.h"
 
 extern "C" {
-    #include "lua/lua.h"
-    #include "lua/lauxlib.h"
-    #include "lua/lualib.h"
+    #include "lua.h"
+    #include "lauxlib.h"
+    #include "lualib.h"
+
+//    #include "lua/lua.h"
+//    #include "lua/lauxlib.h"
+//    #include "lua/lualib.h"
 }
 
 int main() {
     lua_State *l = luaL_newstate();
     luaL_openlibs(l);
-    RegisterPerson(l);
-    luaL_dofile(l, "func.lua");
+    //RegisterPerson(l);
+    RegisterGame(l);
+    luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/Lotos/lua/game.lua");
 }

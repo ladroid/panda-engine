@@ -9,9 +9,13 @@
 #include <string>
 
 extern "C" {
-#include "lua/lua.h"
-#include "lua/lauxlib.h"
-#include "lua/lualib.h"
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+
+//    #include "lua/lua.h"
+//    #include "lua/lauxlib.h"
+//    #include "lua/lualib.h"
 }
 
 
@@ -102,7 +106,10 @@ void RegisterPerson(lua_State *L) {
             {NULL, NULL}
     };
     luaL_newmetatable(L, "luaL_Person");
-    luaL_setfuncs(L, sPersonRegs, 0);
+    //luaL_setfuncs(L, sPersonRegs, 0); //same as function below
+
+    luaL_register(L, NULL, sPersonRegs);
+
     lua_pushvalue(L, -1);
     lua_setfield(L, -1, "__index");
     lua_setglobal(L, "Person");

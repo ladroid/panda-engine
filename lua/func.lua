@@ -7,8 +7,8 @@
 --
 
 local person = Person.new("Jimmy", 25)
-local m = person:get_name()
-local a = person:get_age()
+m = person:get_name()
+a = person:get_age()
 print(m, a)
 
 
