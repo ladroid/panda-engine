@@ -106,9 +106,9 @@ void RegisterPerson(lua_State *L) {
             {NULL, NULL}
     };
     luaL_newmetatable(L, "luaL_Person");
-    //luaL_setfuncs(L, sPersonRegs, 0); //same as function below
+    luaL_setfuncs(L, sPersonRegs, 0); //same as function below
 
-    luaL_register(L, NULL, sPersonRegs);
+    //luaL_register(L, NULL, sPersonRegs);
 
     lua_pushvalue(L, -1);
     lua_setfield(L, -1, "__index");

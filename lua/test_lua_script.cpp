@@ -22,5 +22,5 @@ int main() {
     luaL_openlibs(l);
     //RegisterPerson(l);
     RegisterGame(l);
-    luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/Lotos/lua/game.lua");
+    luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/lua/game.lua");
 }

@@ -88,7 +88,7 @@ int l_Game_GetTicks(lua_State *L) {
 }
 
 int l_Game_Delay(lua_State *L) {
-    Uint32 delay = luaL_checkint(L, 1);
+    Uint32 delay = luaL_checkinteger(L, 1);
     std::cout << "Delay " << delay << std::endl;
     SDL_Delay(delay);
     lua_pushinteger(L, delay);
@@ -116,9 +116,9 @@ void RegisterGame(lua_State *L) {
             {NULL, NULL}
     };
     luaL_newmetatable(L, "luaL_Game");
-    //luaL_setfuncs(L, sPersonRegs, 0); //same as function below
+    luaL_setfuncs(L, sPersonRegs, 0); //same as function below
 
-    luaL_register(L, NULL, sPersonRegs);
+    //luaL_register(L, NULL, sPersonRegs);
     lua_pushvalue(L, -1);
     lua_setfield(L, -1, "__index");
     lua_setglobal(L, "Game");
