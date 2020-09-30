@@ -1,4 +1,4 @@
-# Lotos and Panda for developing games
+# Panda Game Engine for developing games
 
 ## Engine 
 
@@ -12,7 +12,6 @@
 * Entity Component
 * Graphics2D
 * Input Handler
-* Light2D
 * Projectile
 * Sprite Component
 * Tile Component
@@ -37,4 +36,14 @@
 
 **!!!IMPORTANT!!!** compiling Shader and using it with this command ```g++ -std=c++17 testingGL.cpp -Ibuild/include /usr/local/include/glad/src/glad.c -lglfw -ldl```
 
+---
+##Lua and Panda Engine
+
+Under development soon will come. Now start script can be released.
+
+All components will be available soon.
+
+---
 ## Lotos Programming Language
+In the future
+
