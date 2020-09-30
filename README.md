@@ -37,6 +37,10 @@
 **!!!IMPORTANT!!!** compiling Shader and using it with this command ```g++ -std=c++17 testingGL.cpp -Ibuild/include /usr/local/include/glad/src/glad.c -lglfw -ldl```
 
 ---
+
+[Windows version](https://github.com/ladroid/panda-engine/tree/windows)
+
+---
 ## Lua and Panda Engine
 
 Under development soon will come. Now start script can be released.
