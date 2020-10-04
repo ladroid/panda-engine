@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "SDL2/SDL.h"
-#include "../engine/2D/Game.hpp"
+#include "2D/Game.hpp"
 extern "C" {
 #include "lua.h"
 #include "lauxlib.h"

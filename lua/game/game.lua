@@ -11,6 +11,7 @@
 --
 --local frameStart
 --local frameTime = 0
+
 local game = Game.new()
 game:init("title", "SDL_WINDOWPOS_CENTERED", "SDL_WINDOWPOS_CENTERED", 800, 600, false)
 while(game:running()) do

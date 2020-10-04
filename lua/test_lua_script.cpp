@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <string>
-//#include "example2.h"
-#include "lua_game.h"
+//#include "test/example2.h"
+#include "game/lua_game.h"
 
 extern "C" {
     #include "lua.h"
@@ -18,9 +18,11 @@ extern "C" {
 }
 
 int main() {
-    lua_State *l = luaL_newstate();
+   lua_State *l = luaL_newstate();
     luaL_openlibs(l);
-    //RegisterPerson(l);
+//    //RegisterPerson(l);
+//    //luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/lua/test/func.lua");
     RegisterGame(l);
-    luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/lua/game.lua");
+    luaL_dofile(l, "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/lua/game/game.lua");
+
 }
