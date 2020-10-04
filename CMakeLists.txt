@@ -6,6 +6,8 @@ set(CMAKE_CXX_FLAGS "-Wall -std=c++0x -ggdb ${CMAKE_CXX_FLAGS}")
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMAKE/")
 
+set(SOL2_HEADER /Volumes/MyPassport/ProgrammingLanguageDesign/BindCLua/sol2/include)
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
@@ -13,6 +15,7 @@ find_package(SDL2_ttf REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glew REQUIRED)
+#find_package(Sol2 REQUIRED)
 #find_package(LUABIND REQUIRED)
 #find_package(Lua REQUIRED)
 
@@ -20,7 +23,7 @@ add_library(glad /usr/local/include/glad/include/glad.h /usr/local/include/glad/
 
 include_directories("engine/" ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR})
 
-include_directories(lua_script /usr/local/include/ ${LUA_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
+include_directories(lua_script /usr/local/include/ ${SOL2_HEADER} ${LUA_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
 
 #file(GLOB LIBRARIES lua/lib/liblua52.dylib)
 
@@ -37,4 +40,5 @@ target_link_libraries(untitled ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_
 target_link_libraries(lua_script ${LUA_LIBRARIES} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
 message("   *** Lua include: ${LUA_INCLUDE_DIR}")
 message("  *** Lua include lib: ${LUA_LIBRARY}")
+message("  *** Lua include header: ${SOL2_HEADER}")
 #message("  *** Lua include lib: ${LIBRARIES}")
