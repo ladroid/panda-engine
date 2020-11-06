@@ -5,6 +5,7 @@
 #include "Entity/Shader.h"
 #include "Entity/Texture.h"
 #include <GLFW/glfw3.h>
+//#include "/usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h"
 #include "Entity/EntityComponent3D.h"
 #include <iostream>
 
@@ -66,7 +67,7 @@ int init(const char *title, int width, int height) {
     // ------------------------------------
     //Shader ourShader("shader.vs", "shaderf.fs"); // you can name your shader files however you like
 
-    shader.addComponents<Shader>("shader.vs", "shaderf.fs");
+    shader.addComponents<Shader>("/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/engine/3D/shader.vs", "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/engine/3D/shaderf.fs");
 
     texture = new Texture();
 
@@ -107,8 +108,8 @@ int init(const char *title, int width, int height) {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    texture->loading("/Volumes/MyPassport/ProgrammingLanguageDesign/ProgrammingLanguage/Lotos/src/classes/engine/assert/alliance.png");
-    texture->bind();
+    //texture->loading("/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/engine/assert/alliance.png");
+    //texture->bind();
 
     // render loop
     // -----------
@@ -124,7 +125,7 @@ int init(const char *title, int width, int height) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // render the triangle
-        shader.addComponents<Shader>("shader.vs", "shaderf.fs").use();
+        shader.addComponents<Shader>("/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/engine/3D/shader.vs", "/Volumes/MyPassport/ProgrammingLanguageDesign/PandaEngine/engine/3D/shaderf.fs").use();
         //ourShader.use();
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);

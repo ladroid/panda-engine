@@ -7,16 +7,19 @@
 
 #include "glad/include/glad.h"
 #include "GLFW/glfw3.h"
-#include "stb_image.h"
+//#include "/usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h"
 #include "EntityComponent3D.h"
 #include <iostream>
 #include <string>
+
+#define STBI_HEADER_FILE_ONLY
+#include "stb_image.h"
 
 class Texture : public Component {
 private:
     GLuint id;
 public:
-    Texture() : id(0) {  }
+    Texture();
     bool loading(const char *path);
     void bind(int index = 0) {
         if(id != 0) {

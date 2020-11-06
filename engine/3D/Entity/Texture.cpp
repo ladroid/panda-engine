@@ -4,6 +4,8 @@
 
 #include "Texture.h"
 
+Texture::Texture() : id(0) {}
+
 bool Texture::loading(const char *path) {
     int width, height, components;
     if(path == NULL) {
@@ -30,4 +32,11 @@ bool Texture::loading(const char *path) {
     }
     stbi_image_free(data);
     return is_loaded;
+}
+
+Texture::~Texture() noexcept {
+    if(id != 0) {
+        glDeleteTextures(1, &id);
+        id = 0;
+    }
 }
