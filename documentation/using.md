@@ -1,5 +1,7 @@
 # How to use
 
+### How to write 2D games using Panda Engine
+
 The whole example can be found in [Game.cpp](https://github.com/ladroid/lotos-lang/blob/master/engine/2D/Game.cpp).
 
 ----
