@@ -11,6 +11,7 @@
 #include <3D/Entity/Shader.h>
 #include <3D/Entity/Camera.h>
 #include <3D/Entity/Light.h>
+#include <3D/Entity/Mesh.h>
 #include <iostream>
 #include <string>
 
