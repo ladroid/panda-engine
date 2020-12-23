@@ -10,7 +10,7 @@
 #include <gtc/type_ptr.hpp>
 #include <3D/Entity/Shader.h>
 #include <3D/Entity/Camera.h>
-
+#include <3D/Entity/Light.h>
 #include <iostream>
 #include <string>
 

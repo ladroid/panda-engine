@@ -40,6 +40,7 @@
 * Texture
 * Transforms
 * Camera
+* Light
 
 **!!!IMPORTANT!!!** compiling Shader and using it with this command ```g++ -std=c++17 testingGL.cpp -Ibuild/include /usr/local/include/glad/src/glad.c -lglfw -ldl```
 
