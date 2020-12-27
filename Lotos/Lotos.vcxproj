@@ -94,11 +94,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\Programming\MyGameEngine\SDL2-2.0.12\include;D:\Projects\Programming\MyGameEngine\SDL2_image-2.0.5\include;D:\Projects\Programming\MyGameEngine\SDL2_ttf-2.0.15\include;D:\Projects\Programming\MyGameEngine\glad\include;D:\Projects\Programming\MyGameEngine\glfw-3.3.2\include;D:\Projects\Programming\MyGameEngine\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\Programming\MyGameEngine\SDL2-2.0.12\include;D:\Projects\Programming\MyGameEngine\SDL2_image-2.0.5\include;D:\Projects\Programming\MyGameEngine\SDL2_ttf-2.0.15\include;D:\Projects\Programming\MyGameEngine\glad\include;D:\Projects\Programming\MyGameEngine\glfw-3.3.2\include;D:\Projects\Programming\MyGameEngine\glm\glm;D:\Applications\assimp\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

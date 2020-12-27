@@ -21,7 +21,7 @@ enum camera_movement {
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float SPEED = 2.5f;
-const float SENSETIVITY = 0.1f;
+const float SENSETIVITY = 0.00001f;
 const float ZOOM = 45.0f;
 
 class Camera {
@@ -49,30 +49,22 @@ public:
     float zoom;
 
     Camera() {}
-    Camera(glm::vec3 pos, glm::vec3 world_up, float yaw = YAW, float pitch = PITCH) {
-        position = pos;
-        this->world_up = world_up;
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : front(glm::vec3(0.0f, 0.0f, -1.0f)), movement_speed(SPEED), mouse_sensetivity(SENSETIVITY), zoom(ZOOM)
+    {
+        this->position = position;
+        this->world_up = up;
         this->yaw = yaw;
         this->pitch = pitch;
-
-        front = glm::vec3(0.0f, 0.0f, -1.0f);
-        movement_speed = SPEED;
-        mouse_sensetivity = SENSETIVITY;
-        zoom = ZOOM;
 
         updateCameraVector();
     }
-
-    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pith) {
-        position = glm::vec3(posX, posY, posZ);
-        world_up = glm::vec3(upX, upY, upZ);
+    // constructor with scalar values
+    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : front(glm::vec3(0.0f, 0.0f, -1.0f)), movement_speed(SPEED), mouse_sensetivity(SENSETIVITY), zoom(ZOOM)
+    {
+        this->position = glm::vec3(posX, posY, posZ);
+        this->world_up = glm::vec3(upX, upY, upZ);
         this->yaw = yaw;
         this->pitch = pitch;
-
-        front = glm::vec3(0.0f, 0.0f, -1.0f);
-        movement_speed = SPEED;
-        mouse_sensetivity = SENSETIVITY;
-        zoom = ZOOM;
 
         updateCameraVector();
     }
