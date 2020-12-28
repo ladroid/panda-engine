@@ -83,11 +83,14 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         _vertex.Position = vector;
 
         //normal
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
+        if (mesh->HasNormals())
+        {
+            vector.x = mesh->mNormals[i].x;
+            vector.y = mesh->mNormals[i].y;
+            vector.z = mesh->mNormals[i].z;
 
-        _vertex.Normal = vector;
+            _vertex.Normal = vector;
+        }
 
         //texture coordinates
         if (mesh->mTextureCoords[0])

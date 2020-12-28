@@ -12,6 +12,7 @@
 #include "Entity/Light.h"
 #include "Entity/Mesh.h"
 #include "Entity/Model.h"
+#include "Entity/Audio.h"
 #include <iostream>
 #include <string>
 #define STB_IMAGE_IMPLEMENTATION
@@ -89,11 +90,14 @@ void init(std::string name)
     Shader ourShader("D:/Projects/Programming/MyGameEngine/panda-engine-windows/Lotos/src/engine/3D/model_loading.vs", "D:/Projects/Programming/MyGameEngine/panda-engine-windows/Lotos/src/engine/3D/model_loading.fs");
     // load models
     // -----------
-    //Model ourModel("D:/Projects/Programming/GameDesign/Santa/backpack/backpack.obj");
     Model ourModel("D:/Projects/Programming/GameDesign/Santa/santa_house/source/mesh_Model_4.obj");
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    //audio
+    Audio* audio = new Audio();
+    audio->play("D:/Projects/Programming/MyGames/GodotGames/Einsiedler/audio/Ominous-Pursuit.ogg");
 
     // render loop
     // -----------
