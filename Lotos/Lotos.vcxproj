@@ -94,12 +94,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\Programming\MyGameEngine\SDL2-2.0.12\include;D:\Projects\Programming\MyGameEngine\SDL2_image-2.0.5\include;D:\Projects\Programming\MyGameEngine\SDL2_ttf-2.0.15\include;D:\Projects\Programming\MyGameEngine\glad\include;D:\Projects\Programming\MyGameEngine\glfw-3.3.2\include;D:\Projects\Programming\MyGameEngine\glm\glm;D:\Applications\assimp\Assimp\include;D:\Projects\Programming\MyGameEngine\irrKlang-64bit-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Projects\Programming\MyGameEngine\SDL2-2.0.12\include;D:\Projects\Programming\MyGameEngine\SDL2_image-2.0.5\include;D:\Projects\Programming\MyGameEngine\SDL2_ttf-2.0.15\include;D:\Projects\Programming\MyGameEngine\glad\include;D:\Projects\Programming\MyGameEngine\glfw-3.3.2\include;D:\Projects\Programming\MyGameEngine\glm\glm;D:\Applications\assimp\Assimp\include;D:\Projects\Programming\MyGameEngine\irrKlang-64bit-1.6.0\include;D:\Projects\Programming\MyGameEngine\glew-2.2.0\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;glfw3.lib;assimp-vc140-mt.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,6 +136,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\glad\src\glad.c" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\engine\2D\AssetManager.cpp" />
     <ClCompile Include="src\engine\2D\Collision.cpp" />
     <ClCompile Include="src\engine\2D\Entity\EntityComponent.cpp" />
@@ -142,12 +150,22 @@
     <ClCompile Include="src\engine\2D\Map.cpp" />
     <ClCompile Include="src\engine\2D\Texture.cpp" />
     <ClCompile Include="src\engine\2D\Vector2D.cpp" />
+    <ClCompile Include="src\engine\3D\Entity\Singleton.cpp" />
     <ClCompile Include="src\engine\3D\testingGL.cpp" />
     <ClCompile Include="src\engine\test.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imfilebrowser.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="src\dictionary\dictionary.h" />
     <ClInclude Include="src\engine\2D\AssetManager.h" />
     <ClInclude Include="src\engine\2D\Collision.h" />
@@ -171,6 +189,7 @@
     <ClInclude Include="src\engine\2D\Texture.h" />
     <ClInclude Include="src\engine\2D\Vector2D.h" />
     <ClInclude Include="src\engine\3D\Entity\Shader.h" />
+    <ClInclude Include="src\engine\3D\Entity\Singleton.h" />
     <ClInclude Include="src\list\list.h" />
     <ClInclude Include="src\object\object.h" />
     <ClInclude Include="stb_image.h" />

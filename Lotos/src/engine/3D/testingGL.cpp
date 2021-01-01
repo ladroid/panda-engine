@@ -13,6 +13,8 @@
 #include "Entity/Mesh.h"
 #include "Entity/Model.h"
 #include "Entity/Audio.h"
+#include "Entity/UI/UIEngine.h"
+#include "Entity/Singleton.h"
 #include <iostream>
 #include <string>
 #define STB_IMAGE_IMPLEMENTATION
@@ -41,13 +43,20 @@ float lastFrame = 0.0f;
 // lighting
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 
+Model ourModel;
+
+//UI Engine
+UIEngine uiengine;
+
+Singleton* singleton = Singleton::getInstance();
+
 void init(std::string name)
 {
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -69,7 +78,7 @@ void init(std::string name)
     glfwSetScrollCallback(window, scroll_callback);
 
     // tell GLFW to capture our mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -78,6 +87,8 @@ void init(std::string name)
         std::cout << "Failed to initialize GLAD" << std::endl;
     }
 
+    uiengine.Init(window);
+    
     // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
     //stbi_set_flip_vertically_on_load(true);
 
@@ -88,19 +99,23 @@ void init(std::string name)
     // build and compile shaders
     // -------------------------
     Shader ourShader("D:/Projects/Programming/MyGameEngine/panda-engine-windows/Lotos/src/engine/3D/model_loading.vs", "D:/Projects/Programming/MyGameEngine/panda-engine-windows/Lotos/src/engine/3D/model_loading.fs");
+    
     // load models
     // -----------
-    Model ourModel("D:/Projects/Programming/GameDesign/Santa/santa_house/source/mesh_Model_4.obj");
+    ourModel.setModel("D:/Projects/Programming/GameDesign/Santa/santa_house/source/mesh_Model_4.obj");
+
+    std::cout << singleton->getModel() << std::endl;
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    //audio
-    Audio* audio = new Audio();
-    audio->play("D:/Projects/Programming/MyGames/GodotGames/Einsiedler/audio/Ominous-Pursuit.ogg");
+    //TODO:audio
+    //Audio* audio = new Audio();
+    //audio->play("D:/Projects/Programming/MyGames/GodotGames/Einsiedler/audio/Ominous-Pursuit.ogg");
 
     // render loop
     // -----------
+    uiengine.file_dialogue();
     while (!glfwWindowShouldClose(window))
     {
         // per-frame time logic
@@ -118,6 +133,7 @@ void init(std::string name)
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        //uiengine.frame();
         // don't forget to enable shader before setting uniforms
         ourShader.use();
 
@@ -133,6 +149,10 @@ void init(std::string name)
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.draw(ourShader);
+
+        uiengine.frame();
+        uiengine.toolbar();
+        uiengine.render();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

@@ -9,6 +9,9 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 
+const int NUM_BONES_PER_VEREX = 4;
+typedef unsigned int uint;
+
 struct Vertex
 {
 	glm::vec3 Position;
@@ -35,22 +38,30 @@ struct Texture
 	std::string path;
 };
 
+struct VertexBoneData
+{
+	uint id[NUM_BONES_PER_VEREX];
+	float Weight[NUM_BONES_PER_VEREX];
+};
+
 class Mesh
 {
 private:
-	unsigned int VBO, EBO;
+	unsigned int VBO, EBO, VBO_bones;
 	unsigned int uniformBlockIndex;
-	void setupMesh();
-	void setupMeshMaterial();
-public:
 	unsigned int VAO;
 	std::vector<Vertex> verticies;
 	std::vector<Texture> textures;
 	std::vector<unsigned int> indicies;
+	std::vector<VertexBoneData> bones;
 	Material materials;
-
+	void setupMesh();
+	void setupMeshMaterial();
+	void setupMeshMaterialBones();
+public:
 	Mesh(std::vector<Vertex> verticies, std::vector<Texture> textures, std::vector<unsigned int> indicies);
 	Mesh(std::vector<Vertex> verticies, std::vector<Texture> textures, std::vector<unsigned int> indicies, Material materials);
+	Mesh(std::vector<Vertex> verticies, std::vector<Texture> textures, std::vector<unsigned int> indicies, Material materials, std::vector<VertexBoneData> bones);
 	void Draw(Shader& shader);
 	void DrawMaterial(Shader& shader);
 };
@@ -72,6 +83,17 @@ Mesh::Mesh(std::vector<Vertex> verticies, std::vector<Texture> textures, std::ve
 	this->materials = materials;
 
 	setupMeshMaterial();
+}
+
+Mesh::Mesh(std::vector<Vertex> verticies, std::vector<Texture> textures, std::vector<unsigned int> indicies, Material materials, std::vector<VertexBoneData> bones)
+{
+	this->verticies = verticies;
+	this->textures = textures;
+	this->indicies = indicies;
+	this->materials = materials;
+	this->bones = bones;
+
+	setupMeshMaterialBones();
 }
 
 void Mesh::setupMesh()
@@ -140,6 +162,45 @@ void Mesh::setupMeshMaterial()
 	// vertex bitangent
 	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+
+	glBindVertexArray(0);
+}
+
+void Mesh::setupMeshMaterialBones()
+{
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+	glGenBuffers(1, &uniformBlockIndex);
+	glGenBuffers(1, &VBO_bones);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, verticies.size() * sizeof(Vertex) + sizeof(materials), &verticies[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_UNIFORM_BUFFER, uniformBlockIndex);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(materials), (void*)(&materials), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicies.size() * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_bones);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, bones.size() * sizeof(VertexBoneData), &bones[0], GL_STATIC_DRAW);
+
+	// vertex positions
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	// vertex normals
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	// vertex texture coords
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+	// bones
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 4, GL_INT, GL_FALSE, sizeof(VertexBoneData), (void*)0);
+	// bone's weight
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBoneData), (void*)offsetof(VertexBoneData, Weight));
 
 	glBindVertexArray(0);
 }

@@ -14,10 +14,13 @@
 #include <string>
 
 unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
-
+/*
+* //TODO:make animation
+*/
 class Model
 {
 private:
+    Assimp::Importer import;
 	std::vector<Mesh> mesh;
     std::string directory;
     void loadModel(std::string path);
@@ -27,7 +30,12 @@ private:
 public:
     std::vector<Texture> textures_loaded;
     bool gammaCorrection;
+    Model() { }
     Model(std::string path, bool gamma = false) : gammaCorrection(gamma)
+    {
+        loadModel(path);
+    }
+    void setModel(std::string path, bool gamma = false)
     {
         loadModel(path);
     }
@@ -37,12 +45,13 @@ public:
 
 void Model::loadModel(std::string path)
 {
-    Assimp::Importer import;
+    std::cout << path << std::endl;
     const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
-    if (!scene)
+    if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        std::cerr << "Error could not find a model" << std::endl;
+        std::cerr << "Error could not find a model ERROR::ASSIMP:: " << import.GetErrorString() << std::endl;
+        return;
     }
     this->directory = path.substr(0, path.find_last_of('/'));
     processNode(scene->mRootNode, scene);

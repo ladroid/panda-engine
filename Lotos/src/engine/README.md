@@ -1,4 +1,4 @@
-![alt text](https://github.com/ladroid/lotos-lang/blob/master/src/classes/engine/logo/logo.png)
+# Panda Engine
 
-This is new game engine which was built for programming language Lotos
+**Panda Engine cross-platform game engine to create 2D and 3D games.**
 
