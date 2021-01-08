@@ -64,7 +64,6 @@ public:
 				if (ImGui::MenuItem("Import 3D Model", NULL))
 				{
 					fileDialog.Open();
-					//TODO:Import 3d model
 				}
 				if (ImGui::MenuItem("Close"))
 				{

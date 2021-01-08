@@ -1,6 +1,7 @@
 #include "../../panda-engine-windows/Lotos/stb_image.h"
 #include "glad/glad.h"
 #include "glm.hpp"
+#include <gtc/quaternion.hpp>
 #include "Mesh.h"
 #include "Shader.h"
 #include "assimp/Importer.hpp"
@@ -20,8 +21,7 @@ unsigned int TextureFromFile(const char* path, const std::string& directory, boo
 class Model
 {
 private:
-    Assimp::Importer import;
-	std::vector<Mesh> mesh;
+	std::vector<Mesh> meshes;
     std::string directory;
     void loadModel(std::string path);
     void processNode(aiNode* node, const aiScene* scene);
@@ -37,6 +37,7 @@ public:
     }
     void setModel(std::string path, bool gamma = false)
     {
+        std::cout << "setModel() " << path << std::endl;
         loadModel(path);
     }
     void draw(Shader& shader);
@@ -45,7 +46,8 @@ public:
 
 void Model::loadModel(std::string path)
 {
-    std::cout << path << std::endl;
+    Assimp::Importer import;
+    std::cout << "loadModel() " << path << std::endl;
     const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
     if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -54,7 +56,8 @@ void Model::loadModel(std::string path)
         return;
     }
     this->directory = path.substr(0, path.find_last_of('/'));
-    processNode(scene->mRootNode, scene);
+    std::cout << "Scene " << scene->mRootNode << std::endl;
+    this->processNode(scene->mRootNode, scene);
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene)
@@ -62,12 +65,13 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        this->mesh.push_back(processMesh(mesh, scene));
+        std::cout << "Mesh " << mesh << std::endl;
+        this->meshes.push_back(this->processMesh(mesh, scene));
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(node->mChildren[i], scene);
+        this->processNode(node->mChildren[i], scene);
     }
 }
 
@@ -207,15 +211,16 @@ std::vector<Texture> Model::loadTexture(aiMaterial* material, aiTextureType text
 
 void Model::draw(Shader& shader) 
 {
-   for(int i = 0; i < mesh.size(); i++)
+   for(int i = 0; i < this->meshes.size(); i++)
    {
        //mesh[i].Draw(shader);
-       mesh[i].DrawMaterial(shader);
+       this->meshes[i].DrawMaterial(shader);
    }
 }
 
 Model::~Model()
 {
+    
 }
 
 unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)

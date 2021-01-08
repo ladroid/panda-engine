@@ -5,17 +5,15 @@
 #ifndef LOTOS_TEXTURE_H
 #define LOTOS_TEXTURE_H
 
-#include "glad/include/glad.h"
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 //#include "/usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h"
-#include "EntityComponent3D.h"
+//#include "EntityComponent3D.h"
 #include <iostream>
 #include <string>
+#include "../../panda-engine-windows/Lotos/stb_image.h"
 
-#define STBI_HEADER_FILE_ONLY
-#include "stb_image.h"
-
-class Texture : public Component {
+class Texture {
 private:
     GLuint id;
 public:
